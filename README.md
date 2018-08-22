@@ -1,10 +1,13 @@
 # 欢迎报bug或pull request ~
 
-若图片不能正常显示，请点击博客地址：[制造装备物联及生产管理系统](http://www.realfond.cn/2016/12/27/%E7%94%9F%E4%BA%A7%E7%AE%A1%E7%90%86ERP%E7%B3%BB%E7%BB%9F/)
+# shengda_ssm
 
-# production_ssm
-
-这是一个生产管理ERP系统。依托科技计划重点项目“制造装备物联及生产管理系统研发”，主要包括：计划进度、设备管理、工艺监控、物料监控、人员监控、质量监控、系统管理7大模块。
+这是一个完整的框架包含-用户权限、文件一类的test、人员监控、前端api接口；
+      福利:
+       1 内附盛大园区api接口
+       2 内附文件服务器部署和使用
+       3 shengda的sql语句
+       4 priduction_ssm.pdf用来撰写框架的参考
 
 
 ## 项目技术架构(Spring+SpringMVC+Mybatis） ##
@@ -19,35 +22,33 @@
 - 统一的异常处理
 - JSP JSTL JavaScript
 - kindeditor富文本编辑器，处理图片上传和富文本编辑<!--more-->
+  swaggerUI 已经集成好了 访问地址     .../项目名/swaggerui.html  注意:只展示了全端api接口那部分的在线文档管理平台api忽略防止篡改
+  EHcache ：shiro和EHcache整合，负责权限管理，前端api中的token也存入内存EHchache中
 
 ## 系统架构 ##
-
-![系统架构图](http://coding.net/u/megagao/p/ziyuan/git/raw/master/pm_image/%25E9%25A1%25B9%25E7%259B%25AE%25E6%259E%25B6%25E6%259E%2584.png)
+  springmvc+mybatis+Ehcache+quatz+shiro+swagerUI+pageHelper+easyUI
 
 ## 数据库设计（详见sql文件） ##
-
-![数据库设计](http://coding.net/u/megagao/p/ziyuan/git/raw/master/pm_image/%25E6%2595%25B0%25E6%258D%25AE%25E5%25BA%2593%25E8%25AE%25BE%25E8%25AE%25A1.png)
+    shengda文件
 
 ## 软件运行截图 ##
 
 - **登录界面**
 
-登录可使用账号：22，密码：22的超级管理员登录，若密码输错，下次登录需输入验证码。
+登录可使用账号：在sys_user总共三条数据，分别是管理员，普通人员，人员监控级别
 
-![登录界面](http://coding.net/u/megagao/p/ziyuan/git/raw/master/pm_image/%25E7%2599%25BB%25E5%25BD%2595%25E7%2595%258C%25E9%259D%25A2.png)
 
 - **运行界面**
 
 超级管理员可显示系统管理模块进行系统权限分配与管理，其他角色可查看除系统管理外的剩余模块的信息（包括下载附件、查看图片等），但是只能维护该角色对应权限内的信息。  
 左边功能搜索栏可进行功能模糊查找。
 
-![运行界面](http://coding.net/u/megagao/p/ziyuan/git/raw/master/pm_image/%25E8%25BF%2590%25E8%25A1%258C%25E7%2595%258C%25E9%259D%25A2.png)
+
 
 - **图片上传**
 
 图片上传的配置请查看文档尾部的注释，图片大小要求不能超过1M，支持jpg、png等多种格式的图片，上传成功后可在相应的展示栏进行回显。
-
-![图片上传](http://coding.net/u/megagao/p/ziyuan/git/raw/master/pm_image/%25E5%259B%25BE%25E7%2589%2587%25E4%25B8%258A%25E4%25BC%25A0.png)
+         参照文件部署和使用文档在linux中部署文件服务器
 
 - **文件上传**
 
