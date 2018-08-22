@@ -1,0 +1,8 @@
+此目录用来存放jar包，然后把jar包制作成maven包上传私服或者本地仓库
+
+QRCode:坐标   
+<dependency>
+  <groupId>org.apache.thrift</groupId>
+  <artifactId>libthrift</artifactId>
+  <version>1.0</version>
+</dependency>

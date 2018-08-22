@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.megagao.production.ssm.mapper.UCaptchasMapper" >
+  <resultMap id="BaseResultMap" type="com.megagao.production.ssm.domain.vo.UCaptchas" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="captchas" property="captchas" jdbcType="VARCHAR" />
+    <result column="success_is" property="successIs" jdbcType="INTEGER" />
+    <result column="expire_time" property="expireTime" jdbcType="TIMESTAMP" />
+    <result column="is_available" property="isAvailable" jdbcType="INTEGER" />
+    <result column="is_deleted" property="isDeleted" jdbcType="INTEGER" />
+    <result column="version_no" property="versionNo" jdbcType="INTEGER" />
+    <result column="create_userid" property="createUserid" jdbcType="BIGINT" />
+    <result column="create_username" property="createUsername" jdbcType="VARCHAR" />
+    <result column="create_userip" property="createUserip" jdbcType="VARCHAR" />
+    <result column="create_usermac" property="createUsermac" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_time_db" property="createTimeDb" jdbcType="TIMESTAMP" />
+    <result column="server_ip" property="serverIp" jdbcType="VARCHAR" />
+    <result column="update_userid" property="updateUserid" jdbcType="BIGINT" />
+    <result column="update_username" property="updateUsername" jdbcType="VARCHAR" />
+    <result column="update_userip" property="updateUserip" jdbcType="VARCHAR" />
+    <result column="update_usermac" property="updateUsermac" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_time_db" property="updateTimeDb" jdbcType="TIMESTAMP" />
+    <result column="client_versionno" property="clientVersionno" jdbcType="VARCHAR" />
+    <result column="company_id" property="companyId" jdbcType="BIGINT" />
+    <result column="sendIp" property="sendip" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mobile, email, captchas, success_is, expire_time, is_available, is_deleted, version_no, 
+    create_userid, create_username, create_userip, create_usermac, create_time, create_time_db, 
+    server_ip, update_userid, update_username, update_userip, update_usermac, update_time, 
+    update_time_db, client_versionno, company_id, sendIp
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.megagao.production.ssm.domain.vo.UCaptchasExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from u_captchas
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from u_captchas
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from u_captchas
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.megagao.production.ssm.domain.vo.UCaptchasExample" >
+    delete from u_captchas
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.megagao.production.ssm.domain.vo.UCaptchas" >
+    insert into u_captchas (id, mobile, email, 
+      captchas, success_is, expire_time, 
+      is_available, is_deleted, version_no, 
+      create_userid, create_username, create_userip, 
+      create_usermac, create_time, create_time_db, 
+      server_ip, update_userid, update_username, 
+      update_userip, update_usermac, update_time, 
+      update_time_db, client_versionno, company_id, 
+      sendIp)
+    values (#{id,jdbcType=BIGINT}, #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{captchas,jdbcType=VARCHAR}, #{successIs,jdbcType=INTEGER}, #{expireTime,jdbcType=TIMESTAMP}, 
+      #{isAvailable,jdbcType=INTEGER}, #{isDeleted,jdbcType=INTEGER}, #{versionNo,jdbcType=INTEGER}, 
+      #{createUserid,jdbcType=BIGINT}, #{createUsername,jdbcType=VARCHAR}, #{createUserip,jdbcType=VARCHAR}, 
+      #{createUsermac,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{createTimeDb,jdbcType=TIMESTAMP}, 
+      #{serverIp,jdbcType=VARCHAR}, #{updateUserid,jdbcType=BIGINT}, #{updateUsername,jdbcType=VARCHAR}, 
+      #{updateUserip,jdbcType=VARCHAR}, #{updateUsermac,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{updateTimeDb,jdbcType=TIMESTAMP}, #{clientVersionno,jdbcType=VARCHAR}, #{companyId,jdbcType=BIGINT}, 
+      #{sendip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.megagao.production.ssm.domain.vo.UCaptchas" >
+    insert into u_captchas
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="captchas != null" >
+        captchas,
+      </if>
+      <if test="successIs != null" >
+        success_is,
+      </if>
+      <if test="expireTime != null" >
+        expire_time,
+      </if>
+      <if test="isAvailable != null" >
+        is_available,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="versionNo != null" >
+        version_no,
+      </if>
+      <if test="createUserid != null" >
+        create_userid,
+      </if>
+      <if test="createUsername != null" >
+        create_username,
+      </if>
+      <if test="createUserip != null" >
+        create_userip,
+      </if>
+      <if test="createUsermac != null" >
+        create_usermac,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createTimeDb != null" >
+        create_time_db,
+      </if>
+      <if test="serverIp != null" >
+        server_ip,
+      </if>
+      <if test="updateUserid != null" >
+        update_userid,
+      </if>
+      <if test="updateUsername != null" >
+        update_username,
+      </if>
+      <if test="updateUserip != null" >
+        update_userip,
+      </if>
+      <if test="updateUsermac != null" >
+        update_usermac,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="updateTimeDb != null" >
+        update_time_db,
+      </if>
+      <if test="clientVersionno != null" >
+        client_versionno,
+      </if>
+      <if test="companyId != null" >
+        company_id,
+      </if>
+      <if test="sendip != null" >
+        sendIp,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="captchas != null" >
+        #{captchas,jdbcType=VARCHAR},
+      </if>
+      <if test="successIs != null" >
+        #{successIs,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null" >
+        #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAvailable != null" >
+        #{isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null" >
+        #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null" >
+        #{createUserid,jdbcType=BIGINT},
+      </if>
+      <if test="createUsername != null" >
+        #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserip != null" >
+        #{createUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="createUsermac != null" >
+        #{createUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTimeDb != null" >
+        #{createTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serverIp != null" >
+        #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserid != null" >
+        #{updateUserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateUsername != null" >
+        #{updateUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserip != null" >
+        #{updateUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUsermac != null" >
+        #{updateUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimeDb != null" >
+        #{updateTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientVersionno != null" >
+        #{clientVersionno,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="sendip != null" >
+        #{sendip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.megagao.production.ssm.domain.vo.UCaptchasExample" resultType="java.lang.Integer" >
+    select count(*) from u_captchas
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update u_captchas
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.captchas != null" >
+        captchas = #{record.captchas,jdbcType=VARCHAR},
+      </if>
+      <if test="record.successIs != null" >
+        success_is = #{record.successIs,jdbcType=INTEGER},
+      </if>
+      <if test="record.expireTime != null" >
+        expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isAvailable != null" >
+        is_available = #{record.isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeleted != null" >
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionNo != null" >
+        version_no = #{record.versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUserid != null" >
+        create_userid = #{record.createUserid,jdbcType=BIGINT},
+      </if>
+      <if test="record.createUsername != null" >
+        create_username = #{record.createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUserip != null" >
+        create_userip = #{record.createUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUsermac != null" >
+        create_usermac = #{record.createUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTimeDb != null" >
+        create_time_db = #{record.createTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serverIp != null" >
+        server_ip = #{record.serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUserid != null" >
+        update_userid = #{record.updateUserid,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateUsername != null" >
+        update_username = #{record.updateUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUserip != null" >
+        update_userip = #{record.updateUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUsermac != null" >
+        update_usermac = #{record.updateUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTimeDb != null" >
+        update_time_db = #{record.updateTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.clientVersionno != null" >
+        client_versionno = #{record.clientVersionno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyId != null" >
+        company_id = #{record.companyId,jdbcType=BIGINT},
+      </if>
+      <if test="record.sendip != null" >
+        sendIp = #{record.sendip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update u_captchas
+    set id = #{record.id,jdbcType=BIGINT},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      captchas = #{record.captchas,jdbcType=VARCHAR},
+      success_is = #{record.successIs,jdbcType=INTEGER},
+      expire_time = #{record.expireTime,jdbcType=TIMESTAMP},
+      is_available = #{record.isAvailable,jdbcType=INTEGER},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      version_no = #{record.versionNo,jdbcType=INTEGER},
+      create_userid = #{record.createUserid,jdbcType=BIGINT},
+      create_username = #{record.createUsername,jdbcType=VARCHAR},
+      create_userip = #{record.createUserip,jdbcType=VARCHAR},
+      create_usermac = #{record.createUsermac,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      create_time_db = #{record.createTimeDb,jdbcType=TIMESTAMP},
+      server_ip = #{record.serverIp,jdbcType=VARCHAR},
+      update_userid = #{record.updateUserid,jdbcType=BIGINT},
+      update_username = #{record.updateUsername,jdbcType=VARCHAR},
+      update_userip = #{record.updateUserip,jdbcType=VARCHAR},
+      update_usermac = #{record.updateUsermac,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      update_time_db = #{record.updateTimeDb,jdbcType=TIMESTAMP},
+      client_versionno = #{record.clientVersionno,jdbcType=VARCHAR},
+      company_id = #{record.companyId,jdbcType=BIGINT},
+      sendIp = #{record.sendip,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.megagao.production.ssm.domain.vo.UCaptchas" >
+    update u_captchas
+    <set >
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="captchas != null" >
+        captchas = #{captchas,jdbcType=VARCHAR},
+      </if>
+      <if test="successIs != null" >
+        success_is = #{successIs,jdbcType=INTEGER},
+      </if>
+      <if test="expireTime != null" >
+        expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isAvailable != null" >
+        is_available = #{isAvailable,jdbcType=INTEGER},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null" >
+        version_no = #{versionNo,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null" >
+        create_userid = #{createUserid,jdbcType=BIGINT},
+      </if>
+      <if test="createUsername != null" >
+        create_username = #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserip != null" >
+        create_userip = #{createUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="createUsermac != null" >
+        create_usermac = #{createUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTimeDb != null" >
+        create_time_db = #{createTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serverIp != null" >
+        server_ip = #{serverIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserid != null" >
+        update_userid = #{updateUserid,jdbcType=BIGINT},
+      </if>
+      <if test="updateUsername != null" >
+        update_username = #{updateUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserip != null" >
+        update_userip = #{updateUserip,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUsermac != null" >
+        update_usermac = #{updateUsermac,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTimeDb != null" >
+        update_time_db = #{updateTimeDb,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clientVersionno != null" >
+        client_versionno = #{clientVersionno,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null" >
+        company_id = #{companyId,jdbcType=BIGINT},
+      </if>
+      <if test="sendip != null" >
+        sendIp = #{sendip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.megagao.production.ssm.domain.vo.UCaptchas" >
+    update u_captchas
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      captchas = #{captchas,jdbcType=VARCHAR},
+      success_is = #{successIs,jdbcType=INTEGER},
+      expire_time = #{expireTime,jdbcType=TIMESTAMP},
+      is_available = #{isAvailable,jdbcType=INTEGER},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      version_no = #{versionNo,jdbcType=INTEGER},
+      create_userid = #{createUserid,jdbcType=BIGINT},
+      create_username = #{createUsername,jdbcType=VARCHAR},
+      create_userip = #{createUserip,jdbcType=VARCHAR},
+      create_usermac = #{createUsermac,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_time_db = #{createTimeDb,jdbcType=TIMESTAMP},
+      server_ip = #{serverIp,jdbcType=VARCHAR},
+      update_userid = #{updateUserid,jdbcType=BIGINT},
+      update_username = #{updateUsername,jdbcType=VARCHAR},
+      update_userip = #{updateUserip,jdbcType=VARCHAR},
+      update_usermac = #{updateUsermac,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      update_time_db = #{updateTimeDb,jdbcType=TIMESTAMP},
+      client_versionno = #{clientVersionno,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=BIGINT},
+      sendIp = #{sendip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

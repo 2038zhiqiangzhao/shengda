@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.megagao.production.ssm.mapper.BaseDicMapper" >
+  <resultMap id="BaseResultMap" type="com.megagao.production.ssm.domain.vo.BaseDic" >
+    <result column="dic_key" property="dicKey" jdbcType="INTEGER" />
+    <result column="dic_pkey" property="dicPkey" jdbcType="INTEGER" />
+    <result column="dic_value" property="dicValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+   
+  <sql id="Base_Column_List" >
+    dic_key, dic_pkey, dic_value
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select *  from base_dic
+   
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.megagao.production.ssm.domain.vo.BaseDicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from base_dic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.megagao.production.ssm.domain.vo.BaseDicExample" >
+    delete from base_dic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.megagao.production.ssm.domain.vo.BaseDic" >
+    insert into base_dic (dic_key, dic_pkey, dic_value
+      )
+    values (#{dicKey,jdbcType=INTEGER}, #{dicPkey,jdbcType=INTEGER}, #{dicValue,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.megagao.production.ssm.domain.vo.BaseDic" >
+    insert into base_dic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dicKey != null" >
+        dic_key,
+      </if>
+      <if test="dicPkey != null" >
+        dic_pkey,
+      </if>
+      <if test="dicValue != null" >
+        dic_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dicKey != null" >
+        #{dicKey,jdbcType=INTEGER},
+      </if>
+      <if test="dicPkey != null" >
+        #{dicPkey,jdbcType=INTEGER},
+      </if>
+      <if test="dicValue != null" >
+        #{dicValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.megagao.production.ssm.domain.vo.BaseDicExample" resultType="java.lang.Integer" >
+    select count(*) from base_dic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update base_dic
+    <set >
+      <if test="record.dicKey != null" >
+        dic_key = #{record.dicKey,jdbcType=INTEGER},
+      </if>
+      <if test="record.dicPkey != null" >
+        dic_pkey = #{record.dicPkey,jdbcType=INTEGER},
+      </if>
+      <if test="record.dicValue != null" >
+        dic_value = #{record.dicValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update base_dic
+    set dic_key = #{record.dicKey,jdbcType=INTEGER},
+      dic_pkey = #{record.dicPkey,jdbcType=INTEGER},
+      dic_value = #{record.dicValue,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

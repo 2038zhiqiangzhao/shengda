@@ -1,0 +1,333 @@
+/*
+SQLyog Ultimate v8.32 
+MySQL - 5.5.49 : Database - production_ssm
+*********************************************************************
+*/
+
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`production_ssm` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+
+USE `production_ssm`;
+
+/*Table structure for table `base_dic` */
+
+DROP TABLE IF EXISTS `base_dic`;
+
+CREATE TABLE `base_dic` (
+  `dic_key` int(11) DEFAULT NULL COMMENT 'key',
+  `dic_pkey` int(11) DEFAULT NULL COMMENT '父key',
+  `dic_value` varchar(32) DEFAULT NULL COMMENT 'value',
+  UNIQUE KEY `dic_key` (`dic_key`),
+  UNIQUE KEY `AK_Key_2` (`dic_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='数据字典表';
+
+/*Data for the table `base_dic` */
+
+insert  into `base_dic`(`dic_key`,`dic_pkey`,`dic_value`) values (100,NULL,'性别'),(1001,100,'男'),(1002,100,'女'),(1003,100,'未知'),(101,NULL,'三方登录认证方式'),(1010,101,'手机'),(1011,101,'微信'),(1012,101,'微博');
+
+/*Table structure for table `base_sequence` */
+
+DROP TABLE IF EXISTS `base_sequence`;
+
+CREATE TABLE `base_sequence` (
+  `sequence_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序列ID',
+  `create_date` datetime NOT NULL COMMENT '创建时间',
+  `seq_name` varchar(50) NOT NULL COMMENT '序列名称 ',
+  `current_val` int(11) NOT NULL COMMENT '当前值 ',
+  `increment_val` int(11) NOT NULL DEFAULT '1' COMMENT '步长(跨度)',
+  `name` varchar(64) NOT NULL COMMENT '序列描述',
+  PRIMARY KEY (`sequence_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='序列数表';
+
+/*Data for the table `base_sequence` */
+
+insert  into `base_sequence`(`sequence_id`,`create_date`,`seq_name`,`current_val`,`increment_val`,`name`) values (1,'2017-08-08 13:41:44','ORDER_NUMBER',10307,1,'订单序列号');
+
+/*Table structure for table `base_system` */
+
+DROP TABLE IF EXISTS `base_system`;
+
+CREATE TABLE `base_system` (
+  `sys_para_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '参数ID',
+  `create_date` datetime NOT NULL COMMENT '创建时间',
+  `modify_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `name` varchar(32) NOT NULL COMMENT '参数中文名',
+  `code` varchar(64) DEFAULT NULL COMMENT '参数代号',
+  `value` varchar(256) DEFAULT NULL,
+  `is_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除',
+  PRIMARY KEY (`sys_para_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统参数表';
+
+/*Data for the table `base_system` */
+
+/*Table structure for table `c_user` */
+
+DROP TABLE IF EXISTS `c_user`;
+
+CREATE TABLE `c_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL COMMENT '用户名',
+  `age` varchar(5) DEFAULT NULL COMMENT '年纪',
+  `sex` smallint(5) DEFAULT '1003' COMMENT '性别',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  `userphoto` varchar(512) DEFAULT NULL COMMENT '头像',
+  `salt` varchar(256) DEFAULT NULL COMMENT '盐值',
+  `password` varchar(256) DEFAULT NULL COMMENT '密码摘要(2次MD5(密码)+随机盐)',
+  `introduce` varchar(1024) DEFAULT NULL COMMENT '自我介绍',
+  `nick_name` varchar(32) DEFAULT NULL COMMENT '昵称',
+  `mobile` varchar(32) DEFAULT NULL COMMENT '注册手机号',
+  `third_way_login` smallint(10) DEFAULT '1010' COMMENT '第三方登录方式',
+  `third_platform_code` varchar(64) DEFAULT NULL COMMENT '第三方平台编号',
+  `appType` smallint(6) DEFAULT NULL COMMENT 'app类型；1 android 2ios',
+  `openId` varchar(256) DEFAULT NULL COMMENT '微信公众号',
+  `deviceId` bigint(20) DEFAULT NULL COMMENT '设备id',
+  `email` varchar(32) DEFAULT NULL COMMENT '邮箱',
+  `wechat` varchar(64) DEFAULT NULL COMMENT '微信号',
+  `member_level` tinyint(20) DEFAULT NULL COMMENT '用户等级',
+  `is_locked` tinyint(2) DEFAULT '0' COMMENT '是否锁定:0否  1是',
+  `is_delete` tinyint(2) DEFAULT '0' COMMENT '是否删除:0否 1是',
+  `is_available` tinyint(2) DEFAULT '1' COMMENT '是否可用:0否 1是',
+  `create_time` datetime DEFAULT NULL COMMENT '注册时间',
+  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
+  `last_login_time` datetime DEFAULT NULL COMMENT '最后登录时间',
+  `last_login_ip` varchar(50) DEFAULT NULL COMMENT '最后登录ip',
+  `create_ip` varchar(50) DEFAULT NULL COMMENT '注册的ip地址',
+  `status` tinyint(2) DEFAULT '0' COMMENT '绑定状态(0:解绑,1:绑定)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='前端用户表';
+
+/*Data for the table `c_user` */
+
+insert  into `c_user`(`id`,`name`,`age`,`sex`,`birthday`,`userphoto`,`salt`,`password`,`introduce`,`nick_name`,`mobile`,`third_way_login`,`third_platform_code`,`appType`,`openId`,`deviceId`,`email`,`wechat`,`member_level`,`is_locked`,`is_delete`,`is_available`,`create_time`,`update_time`,`last_login_time`,`last_login_ip`,`create_ip`,`status`) values (1,'zzq',NULL,1003,NULL,NULL,'HqPAn3UTaAx0Y2Z5X4iYb5zHJRXx7kc6CJQaleWDp1rEJVWG7nUlejLdFef9Cr8gge3GqhQ2Zyl3otlBhLfO1g==','7z5SPqziIdcsfuue4IFhIshfslGgju0GH8PCWNmLKRu5dvyiVIH3cxtXVJ50GSbhT/puB/bn/LCwUcgJSkATWw==',NULL,NULL,'15800805975',1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(2,'zzq8',NULL,1003,NULL,NULL,'aMnGLAvHfMK9rLeuxWSLckYZUc5PcDZW6j/46VtO27XJSAAS4PlwCHHmUaleL8BKQVxD2P6k+F5jYCmiWiqc9g==','+lm2bMcNG3duDA6hpGbfyU0vLj9v3SkxDZ/OAaG3q1Z1Bob9QAyd837BUkCnfcoF1DnMGVsYH6kz8wfYEtDEhQ==',NULL,NULL,'15800805975',1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(3,'zz5580',NULL,1003,NULL,NULL,'j1dinXi2PLjbApyM3uyUP9xmT1xtYYQAEUrqYVdCT+TV7CSUu/E6kJ1G/EM0rsMbtH5U+Dh/1ojV1DmsQROMXQ==','123456',NULL,NULL,NULL,1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(4,'zzq2',NULL,1003,NULL,NULL,'oL6fe8aNlj2VKb+6EZ01EYHugSGreSo88jbSzKsYK/yoZzVxgQfjBhzUblUnVpnWjr3CeqyFivW0dtvSJjmnkQ==','1/k3tpRMcYspA4vtnVUg6ATFYe22iSiupoIVzuXNhIVmEvPBGj6lPW1EfQTqSCWAgCeOwU0t5aHO5YGid2fVHw==',NULL,NULL,NULL,1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(5,'zzq442',NULL,1003,NULL,NULL,'epxIdHTV47p6NVd3LjTLjODNIm8bEm7BKxffw2CXAHhCtRS4k+9Ni7U1jawFopOro8LVF3QumRBW5HmJvGQvVw==','kJ4rejX524Hi547xZ2BeLLRfCipgRiPLpU7D8Kk9La/33kxPhJDUlYMqVyisXO2vsLioSbV7vqFdZLiNQp2/fw==',NULL,NULL,NULL,1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(6,'zzq66',NULL,1003,NULL,NULL,'ORZwWhwddUhDSWPCdycl+M0L5trjOCKz4BeR0MlHSnL4MVFfXCX86xxM6C2xr8R+crsIayUsoABsuZHdnsRz2g==','Ut9K2tVJcyfjVT6W7cwoZpAjoKaL0lyhiFxKvRClM+CKFNqv3SirCemNN675d8uheAbaiv7XYxIJpCzXUt+aWg==',NULL,NULL,NULL,1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0),(7,'test',NULL,1003,NULL,NULL,'g6qO+dhS0tTqJjaEXzZ3JRPxlzks2j5MZ7psSqcFwFCIa2hHqjyQvnuvjNvg4/hSalrADLn4oob0Ip8kLadHGA==','tCFzxKvv2KmQPCr1iXuoqg4QIwyApG7U28zGPbFHqFlNuFKm6u3DYBhlvD3zxWNLoLHh46ezvks4nm7sOGtM2Q==',NULL,NULL,NULL,1010,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,0,1,NULL,NULL,NULL,NULL,NULL,0);
+
+/*Table structure for table `department` */
+
+DROP TABLE IF EXISTS `department`;
+
+CREATE TABLE `department` (
+  `department_id` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `department_name` varchar(100) CHARACTER SET utf8 DEFAULT NULL,
+  `note` varchar(2000) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`department_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='部门表';
+
+/*Data for the table `department` */
+
+insert  into `department`(`department_id`,`department_name`,`note`) values ('001','项目部','负责接洽项目，并负责项目进度控制、人员配置调度与风险管控'),('002','生产部','负责制定生产计划，并组织生产。'),('003','物料部','负责物料收支与调配。'),('004','财务部','负责公司财务运作。'),('005','人力部','负责公司人事。'),('006','物流部','<span style=\"font-size:14px;\">负责公司物流调配。</span>'),('007','礼仪部','负责前台接待及会务礼仪。');
+
+/*Table structure for table `employee` */
+
+DROP TABLE IF EXISTS `employee`;
+
+CREATE TABLE `employee` (
+  `emp_id` varchar(40) CHARACTER SET utf8 NOT NULL,
+  `emp_name` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `sex` char(1) CHARACTER SET utf8 DEFAULT NULL,
+  `id_code` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `join_date` date DEFAULT NULL,
+  `status` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `education` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `degree` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `major` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `graduate_school` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `education_form` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  `department_id` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`emp_id`),
+  KEY `FK_Reference_30` (`department_id`),
+  CONSTRAINT `FK_Reference_30` FOREIGN KEY (`department_id`) REFERENCES `department` (`department_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='员工表';
+
+/*Data for the table `employee` */
+
+insert  into `employee`(`emp_id`,`emp_name`,`sex`,`id_code`,`birthday`,`join_date`,`status`,`education`,`degree`,`major`,`graduate_school`,`education_form`,`department_id`) values ('001','王武','1','350321xxxxxxxxxxxx',NULL,NULL,'在职','本科','学士','计算机',NULL,'全日制','002'),('002','张三','2','152346842123458618','1970-01-01','1970-01-01','在职','大专','无','软件工程',NULL,'全日制','005'),('003','刘高升','1','156423547861546872',NULL,NULL,'在职','大专','无','人力资源',NULL,'全日制','001');
+
+/*Table structure for table `file_test` */
+
+DROP TABLE IF EXISTS `file_test`;
+
+CREATE TABLE `file_test` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `image` varchar(120) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '图片url',
+  `file` varchar(120) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '文件url',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COMMENT='文件-统计测试表';
+
+/*Data for the table `file_test` */
+
+insert  into `file_test`(`id`,`image`,`file`) values (1,'http://192.168.88.13:9081/fileserver/20180726111537-037-58e43a98-9d1c-41af-87a4-151a7078e127.png,',NULL),(2,'http://192.168.88.13:9081/fileserver/20180726111537-037-58e43a98-9d1c-41af-87a4-151a7078e127.png,',NULL),(3,'http://192.168.88.13:9081/fileserver/20180726113557-057-57ab5747-a327-4143-9ed1-760084ae3a74.png,',NULL),(4,'http://192.168.88.13:9081/fileserver/20180726115552-052-9adfd0b5-d128-43b8-8b50-041aa288adbf.png,',NULL),(5,'http://192.168.88.13:9081/fileserver/20180726120223-023-eb3542b6-5dae-4d69-a382-3aadd311cace.png,',NULL),(6,'http://192.168.88.13:9081/fileserver/20180726124518-018-9af6bad5-ca77-410e-aebc-630990aa6b8d.png,',NULL),(7,'http://192.168.88.13:9081/fileserver/20180726022346-046-9eb81896-270e-46d0-a044-c1ffbd9eb458.png,','http://192.168.88.13:9081/fileserver/20180726022354-054-35db084e-02ff-4f27-adef-a82989f5af04.txt'),(8,'http://192.168.88.13:9081/fileserver/20180726025721-021-1c6f960a-42b2-4113-b9b6-b62cace5bac0.png,','http://192.168.88.13:9081/fileserver/20180726025709-009-0333fb37-dec3-4053-a512-069f922560fa.pdf'),(9,'http://192.168.88.13:9081/fileserver/20180726025721-021-1c6f960a-42b2-4113-b9b6-b62cace5bac0.png,','http://192.168.88.13:9081/fileserver/20180726025709-009-0333fb37-dec3-4053-a512-069f922560fa.pdf'),(10,'http://192.168.88.13:9081/fileserver/20180726031102-002-a5f7346d-5673-400a-a3ca-d468e6c78646.png,','http://192.168.88.13:9081/fileserver/20180726031020-020-589cd7e7-9287-4e15-9b83-c59e949395c6.txt'),(11,'http://192.168.88.13:9081/fileserver/20180726031129-029-3ab4c852-ed17-4dd8-9e2f-a55dfda5b209.png,',NULL);
+
+/*Table structure for table `sys_permission` */
+
+DROP TABLE IF EXISTS `sys_permission`;
+
+CREATE TABLE `sys_permission` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(128) CHARACTER SET utf8 NOT NULL COMMENT '资源名称',
+  `type` varchar(32) CHARACTER SET utf8 NOT NULL COMMENT '资源类型：menu,button,',
+  `url` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '访问url地址',
+  `percode` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '权限代码字符串',
+  `parentid` bigint(20) DEFAULT NULL COMMENT '父结点id',
+  `parentids` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '父结点id列表串',
+  `sortstring` varchar(128) CHARACTER SET utf8 DEFAULT NULL COMMENT '排序号',
+  `available` char(1) CHARACTER SET utf8 DEFAULT NULL COMMENT '是否可用,1：可用，0不可用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限表';
+
+/*Data for the table `sys_permission` */
+
+insert  into `sys_permission`(`id`,`name`,`type`,`url`,`percode`,`parentid`,`parentids`,`sortstring`,`available`) values (40,'部门管理','menu',NULL,NULL,NULL,NULL,NULL,'1'),(41,'部门新增','permission',NULL,'department:add',NULL,NULL,NULL,'1'),(42,'部门修改','permission',NULL,'department:edit',NULL,NULL,NULL,'1'),(43,'部门删除','permission',NULL,'department:delete',NULL,NULL,NULL,'1'),(50,'员工管理','menu',NULL,NULL,NULL,NULL,NULL,NULL),(51,'员工新增','permission',NULL,'employee:add',NULL,NULL,NULL,NULL),(52,'员工修改','permission',NULL,'employee:edit',NULL,NULL,NULL,NULL),(53,'员工删除','permission',NULL,'employee:delete',NULL,NULL,NULL,NULL),(200,'用户管理','menu',NULL,NULL,NULL,NULL,NULL,NULL),(201,'用户新增','permission',NULL,'user:add',NULL,NULL,NULL,NULL),(202,'用户修改','permission',NULL,'user:edit',NULL,NULL,NULL,NULL),(203,'用户删除','permission',NULL,'user:delete',NULL,NULL,NULL,NULL),(210,'角色管理','menu',NULL,NULL,NULL,NULL,NULL,NULL),(211,'角色新增','permission',NULL,'role:add',NULL,NULL,NULL,NULL),(212,'角色修改','permission',NULL,'role:edit',NULL,NULL,NULL,NULL),(213,'角色删除','permission',NULL,'role:delete',NULL,NULL,NULL,NULL);
+
+/*Table structure for table `sys_role` */
+
+DROP TABLE IF EXISTS `sys_role`;
+
+CREATE TABLE `sys_role` (
+  `role_id` varchar(36) CHARACTER SET utf8 NOT NULL,
+  `role_name` varchar(128) CHARACTER SET utf8 NOT NULL COMMENT '角色名称',
+  `available` char(1) CHARACTER SET utf8 DEFAULT '1' COMMENT '是否可用,1：可用，0不可用',
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色';
+
+/*Data for the table `sys_role` */
+
+insert  into `sys_role`(`role_id`,`role_name`,`available`) values ('001','超级管理员','1'),('002','普通用户','1'),('003','人员监控','1');
+
+/*Table structure for table `sys_role_permission` */
+
+DROP TABLE IF EXISTS `sys_role_permission`;
+
+CREATE TABLE `sys_role_permission` (
+  `id` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `sys_role_id` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '角色id',
+  `sys_permission_id` varchar(300) CHARACTER SET utf8 DEFAULT NULL COMMENT '权限id',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色权限表';
+
+/*Data for the table `sys_role_permission` */
+
+insert  into `sys_role_permission`(`id`,`sys_role_id`,`sys_permission_id`) values ('001','001','41,42,43,51,52,53,201,202,203,211,212,213,'),('002','002','41,42,43,'),('003','003','41,42,43,51,52,53,');
+
+/*Table structure for table `sys_user` */
+
+DROP TABLE IF EXISTS `sys_user`;
+
+CREATE TABLE `sys_user` (
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL COMMENT '主键',
+  `username` varchar(64) CHARACTER SET utf8 DEFAULT NULL COMMENT '姓名',
+  `password` varchar(32) CHARACTER SET utf8 DEFAULT NULL COMMENT '密码',
+  `locked` char(1) CHARACTER SET utf8 DEFAULT '0' COMMENT '账号是否锁定，1：锁定，0未锁定',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+
+/*Data for the table `sys_user` */
+
+insert  into `sys_user`(`id`,`username`,`password`,`locked`) values ('001','zzq','e10adc3949ba59abbe56e057f20f883e','0'),('002','putong','e10adc3949ba59abbe56e057f20f883e','0'),('003','renyuanjiankong','e10adc3949ba59abbe56e057f20f883e','0');
+
+/*Table structure for table `sys_user_role` */
+
+DROP TABLE IF EXISTS `sys_user_role`;
+
+CREATE TABLE `sys_user_role` (
+  `id` varchar(36) CHARACTER SET utf8 NOT NULL,
+  `sys_user_id` varchar(32) CHARACTER SET utf8 NOT NULL,
+  `sys_role_id` varchar(50) CHARACTER SET utf8 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色表';
+
+/*Data for the table `sys_user_role` */
+
+insert  into `sys_user_role`(`id`,`sys_user_id`,`sys_role_id`) values ('001','001','001'),('002','002','002'),('003','003','003');
+
+/*Table structure for table `testdata` */
+
+DROP TABLE IF EXISTS `testdata`;
+
+CREATE TABLE `testdata` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '姓名',
+  `age` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '年纪',
+  `url` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '地址',
+  `is_deplyed` tinyint(2) DEFAULT '0' COMMENT '是否发布 0未发布  1发布',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='测试数据表';
+
+/*Data for the table `testdata` */
+
+insert  into `testdata`(`id`,`name`,`age`,`url`,`is_deplyed`) values (1,'张三','10','qqqqqq',1),(2,'李四','12','wwwww',0),(3,'王五','15','22222',0),(4,'dsfgsd','343','sdfgs',0),(5,'dsfgsd','343','sdfgs',0),(6,'dsfgsd','343','sdfgs',0),(7,'dsfgsd','343','sdfgs',0);
+
+/*Table structure for table `u_captchas` */
+
+DROP TABLE IF EXISTS `u_captchas`;
+
+CREATE TABLE `u_captchas` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '手机',
+  `email` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '邮箱',
+  `captchas` varchar(20) CHARACTER SET utf8 DEFAULT NULL COMMENT '验证码',
+  `success_is` int(4) DEFAULT '0' COMMENT '是否校验：0：否；1：是；',
+  `expire_time` timestamp NULL DEFAULT NULL,
+  `is_available` int(11) DEFAULT NULL COMMENT '是否可用:默认0否;1是',
+  `is_deleted` int(11) DEFAULT '0' COMMENT '是否逻辑删除:默认0未删除;1已删除',
+  `version_no` int(11) DEFAULT '0' COMMENT '版本号:默认0,每次更新+1',
+  `create_userid` bigint(20) DEFAULT NULL COMMENT '创建人ID',
+  `create_username` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '创建人姓名',
+  `create_userip` varchar(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '创建人IP',
+  `create_usermac` varchar(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '创建人MAC地址',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间-应用操作时间',
+  `create_time_db` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间-数据库操作时间',
+  `server_ip` varchar(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '服务器IP',
+  `update_userid` bigint(20) DEFAULT NULL COMMENT '最后修改人ID',
+  `update_username` varchar(100) CHARACTER SET utf8 DEFAULT NULL COMMENT '最后修改人姓名',
+  `update_userip` varchar(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '最后修改人IP',
+  `update_usermac` varchar(60) CHARACTER SET utf8 DEFAULT NULL COMMENT '最后修改人MAC',
+  `update_time` timestamp NULL DEFAULT NULL COMMENT '最后修改时间',
+  `update_time_db` timestamp NULL DEFAULT NULL COMMENT '最后修改时间-数据库默认写入时间',
+  `client_versionno` varchar(40) CHARACTER SET utf8 DEFAULT NULL COMMENT '客户端程序的版本号',
+  `company_id` bigint(20) DEFAULT NULL COMMENT '公司id',
+  `sendIp` varchar(255) CHARACTER SET utf8 DEFAULT NULL COMMENT '发送ip',
+  PRIMARY KEY (`id`),
+  KEY `idx_mobile` (`mobile`) USING BTREE,
+  KEY `idx_create_time` (`create_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='验证码';
+
+/*Data for the table `u_captchas` */
+
+/* Function  structure for function  `currval` */
+
+/*!50003 DROP FUNCTION IF EXISTS `currval` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `currval`(v_seq_name VARCHAR(50)) RETURNS int(11)
+BEGIN     
+    DECLARE VALUE INTEGER;       
+    SET VALUE = 0;       
+    SELECT current_val INTO VALUE  FROM base_sequence WHERE seq_name = v_seq_name; 
+   RETURN VALUE; 
+END */$$
+DELIMITER ;
+
+/* Function  structure for function  `nextval` */
+
+/*!50003 DROP FUNCTION IF EXISTS `nextval` */;
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`%` FUNCTION `nextval`(v_seq_name VARCHAR(50)) RETURNS int(11)
+BEGIN
+    UPDATE base_sequence SET current_val = current_val + increment_val  WHERE seq_name = v_seq_name;
+    RETURN currval(v_seq_name);
+END */$$
+DELIMITER ;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
